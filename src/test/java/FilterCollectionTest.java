@@ -11,4 +11,5 @@ import org.junit.Test;
 public class FilterCollectionTest
 {
     FilterCollection SUT;
+
 }
