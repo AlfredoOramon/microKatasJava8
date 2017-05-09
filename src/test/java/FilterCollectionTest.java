@@ -1,5 +1,9 @@
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +20,14 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
  * <p>
  * Date: 9/05/17 12:11
  */
+@RunWith(JUnitParamsRunner.class)
 public class FilterCollectionTest
 {
     private static final int MIN_LENGHT_FOUR=4;
-    FilterCollection SUT;
+    private static final int MIN_LENGHT_THREE=3;
+    private static final int MIN_LENGHT_ONE=1;
+
+    private FilterCollection SUT;
 
     @Before
     public void setup()
@@ -27,20 +35,33 @@ public class FilterCollectionTest
         SUT=new FilterCollection();
     }
 
-    @Test
-    public void filterStringsByLenght_ListWithLotOfValuesAndThreeWithLenghtMoreThanThree_ShouldReturnAListWithOnlyThoseOneString()
+    private Object[] parametersList()
     {
-        //given
+        return new Object[]{
+                //List, Expected, Max_lenght
+                new Object[]{getListOfNames("My", "name", "is", "John", "Doe"), getListOfNames( "John", "name") , MIN_LENGHT_FOUR},
+                new Object[]{getListOfNames("My", "name", "is", "John", "Doe"), getListOfNames( "John", "name", "Doe") , MIN_LENGHT_THREE}
+        };
+    }
 
-        List<String> collection = asList("My", "name", "is", "John", "Doe");
+ public List<String> getListOfNames(String... names)
+ {
+     List<String> result = asList(names);
+     return result;
+ }
 
-        //then
-        List<String> result=SUT.filterStringsByLenght(collection,MIN_LENGHT_FOUR);
+    @Test
+    @Parameters(method = "parametersList")
+    public void filterStringsByLenght_ListWithLotOfValues_ShouldReturnAListWithOnlyThoseWithMinimunLeghtOf
+            (List<String> collection,List<String> expectedList,int numberOfOccurences) {
+
+        List<String> result = SUT.filterStringsByLenght(collection, numberOfOccurences);
 
         //when
         assertThat(result, hasSize(2));
-        assertThat(result, hasItem("John"));
-        assertThat(result, hasItem("Mathias"));
+        for (String expected : expectedList) {
+            assertThat(result, hasItem(expected));
+        }
     }
 
 }
