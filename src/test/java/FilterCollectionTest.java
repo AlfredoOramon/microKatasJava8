@@ -12,4 +12,10 @@ public class FilterCollectionTest
 {
     FilterCollection SUT;
 
+    @Before
+    public void setup()
+    {
+        SUT=new FilterCollection();
+    }
+
 }
