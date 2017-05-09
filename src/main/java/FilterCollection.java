@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -11,8 +12,10 @@ import static java.util.Arrays.asList;
  * Date: 9/05/17 12:14
  */
 public class FilterCollection {
-    public List<String> filterStringsByLenght(List<String> collection, int minLenghtFour)
+    public List<String> filterStringsByLenght(List<String> collection, int minLeght)
     {
-        return asList("John", "Mathias");
+        return collection.stream()
+                .filter( string -> string.length() >= minLeght)
+                .collect(Collectors.toList());
     }
 }

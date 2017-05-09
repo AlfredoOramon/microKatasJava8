@@ -27,6 +27,11 @@ public class FilterCollectionTest
     private static final int MIN_LENGHT_THREE=3;
     private static final int MIN_LENGHT_ONE=1;
 
+    private static final int COLLECTION_SIZE_TWO=2;
+    private static final int COLLECTION_SIZE_THREE=3;
+
+
+
     private FilterCollection SUT;
 
     @Before
@@ -39,8 +44,8 @@ public class FilterCollectionTest
     {
         return new Object[]{
                 //List, Expected, Max_lenght
-                new Object[]{getListOfNames("My", "name", "is", "John", "Doe"), getListOfNames( "John", "name") , MIN_LENGHT_FOUR},
-                new Object[]{getListOfNames("My", "name", "is", "John", "Doe"), getListOfNames( "John", "name", "Doe") , MIN_LENGHT_THREE}
+                new Object[]{getListOfNames("My", "name", "is", "John", "Doe"), getListOfNames( "John", "name") , MIN_LENGHT_FOUR, COLLECTION_SIZE_TWO},
+                new Object[]{getListOfNames("My", "name", "is", "John", "Doe"), getListOfNames( "John", "name", "Doe") , MIN_LENGHT_THREE,COLLECTION_SIZE_THREE}
         };
     }
 
@@ -53,12 +58,12 @@ public class FilterCollectionTest
     @Test
     @Parameters(method = "parametersList")
     public void filterStringsByLenght_ListWithLotOfValues_ShouldReturnAListWithOnlyThoseWithMinimunLeghtOf
-            (List<String> collection,List<String> expectedList,int numberOfOccurences) {
+            (List<String> collection,List<String> expectedList,int numberOfOccurences, int collectionSize) {
 
         List<String> result = SUT.filterStringsByLenght(collection, numberOfOccurences);
 
         //when
-        assertThat(result, hasSize(2));
+        assertThat(result, hasSize(collectionSize));
         for (String expected : expectedList) {
             assertThat(result, hasItem(expected));
         }
