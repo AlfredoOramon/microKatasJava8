@@ -1,6 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+
 /**
  * ClassName
  * <p>
@@ -16,6 +20,19 @@ public class FilterCollectionTest
     public void setup()
     {
         SUT=new FilterCollection();
+    }
+
+    @Test
+    public void filterStrings_ListWithLotOfValuesAndThreeWithLenghtMoreThanThree_ShouldReturnAListWithOnlyThoseOneString
+    {
+        //given
+
+        //then
+
+        //when
+        assertThat(result, hasSize(2));
+        assertThat(result, hasItem("John"));
+        assertThat(result, hasItem("Matias"));
     }
 
 }
