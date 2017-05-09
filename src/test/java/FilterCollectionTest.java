@@ -28,7 +28,7 @@ public class FilterCollectionTest
     }
 
     @Test
-    public void filterStringsByLenght_ListWithLotOfValuesAndThreeWithLenghtMoreThanThree_ShouldReturnAListWithOnlyThoseOneString
+    public void filterStringsByLenght_ListWithLotOfValuesAndThreeWithLenghtMoreThanThree_ShouldReturnAListWithOnlyThoseOneString()
     {
         //given
 
@@ -40,7 +40,7 @@ public class FilterCollectionTest
         //when
         assertThat(result, hasSize(2));
         assertThat(result, hasItem("John"));
-        assertThat(result, hasItem("Matias"));
+        assertThat(result, hasItem("Mathias"));
     }
 
 }
